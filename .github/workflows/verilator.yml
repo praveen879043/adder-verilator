@@ -1,0 +1,25 @@
+name: Verilator CI
+
+on: [push, pull_request]
+
+jobs:
+  verilator-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Verilator
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y verilator make g++
+
+    - name: Run Verilator Build
+      run: |
+        verilator --cc adder_tb.sv --exe sim_main.cpp adder.sv
+        make -C obj_dir -f Vadder_tb.mk Vadder_tb
+
+    - name: Run Simulation
+      run: ./obj_dir/Vadder_tb
+
