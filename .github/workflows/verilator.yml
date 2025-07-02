@@ -17,7 +17,7 @@ jobs:
 
     - name: Run Verilator Build
       run: |
-        verilator --timing --cc adder_tb.sv --exe sim_main.cpp adder.sv
+        verilator -Wall --cc adder.sv --exe adder_tb.cpp
         make -C obj_dir -f Vadder_tb.mk Vadder_tb
 
     - name: Run Simulation
